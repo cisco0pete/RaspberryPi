@@ -1,1 +1,1 @@
-I am new to GIThub and Raspberry Pi. This is my repo for learning how to navigate the Raspberry Pi 3 B+ that I was gifted from a wonderful professor of mine. It was intially a PWNIGOTCHI but I have several other SD cards I plan on configuring with other projects. 
+I am new to GIThub and Raspberry Pi. This is my repo for learning how to navigate the Raspberry Pi 3 B+ that I was gifted from a thoughtful mentor. It was intially a PWNIGOTCHI but I have several other SD cards I plan on configuring with other projects. 
