@@ -1,0 +1,81 @@
+import subprocess
+import netifaces
+import time
+from waveshare_epd import epd2in13_V2
+from PIL import Image, ImageDraw, ImageFont
+
+# Initialize e-Paper display
+epd = epd2in13_V2.EPD()
+
+# Define fonts
+font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 12)
+font_small = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 10)
+INTERFACE_NAME = 'wlan0'
+
+def get_network_info(interface=INTERFACE_NAME):
+    try:
+        # Get network information for the specified interface
+        if interface in netifaces.interfaces():
+            addresses = netifaces.ifaddresses(interface)
+            ip_address = addresses[netifaces.AF_INET][0]['addr']
+            netmask = addresses[netifaces.AF_INET][0]['netmask']
+            gateway = netifaces.gateways()['default'][netifaces.AF_INET][0]
+            return ip_address, netmask, gateway
+        else:
+            print(f"Interface {interface} not found.")
+            return None, None, None
+    except Exception as e:
+        print(f"Error retrieving network information: {e}")
+        return None, None, None
+
+def get_ssid(interface=INTERFACE_NAME):
+    try:
+        # Execute the iwgetid command to get the SSID of the specified interface
+        result = subprocess.run(['iwgetid', interface, '--raw'], capture_output=True, text=True)
+        if result.returncode == 0:
+            return result.stdout.strip()
+        else:
+            return "SSID not found"
+    except Exception as e:
+        print(f"Error retrieving SSID: {e}")
+        return "SSID error"
+
+def display_network_info(ip_address, netmask, gateway, ssid):
+    # Create new image with white background (landscape orientation)
+    image = Image.new('1', (epd.height, epd.width), 255)
+    draw = ImageDraw.Draw(image)
+
+    # Clear display
+    epd.init(epd.FULL_UPDATE)
+    epd.displayPartBaseImage(epd.getbuffer(image))
+
+    # Draw network information on the display
+    draw.text((10, 10), f"IP Address {INTERFACE_NAME}: {ip_address}", font=font, fill=0)
+    draw.text((10, 30), f"Subnet Mask: {netmask}", font=font, fill=0)
+    draw.text((10, 50), f"Default Gateway: {gateway}", font=font, fill=0)
+    draw.text((10, 70), f"SSID: {ssid}", font=font, fill=0)
+
+    # Add sentence below the network information
+    sentence = "This was a pain in the ass"
+    draw.text((10, 90), sentence, font=font_small, fill=0)
+
+    # Rotate the image 90 degrees clockwise
+    image = image.rotate(90, expand=True)
+
+    # Display rotated image on the e-Paper display
+    epd.init(epd.FULL_UPDATE)
+    epd.display(epd.getbuffer(image))
+
+    # Sleep to conserve power
+    epd.sleep()
+
+def main():
+    # Get network information
+    ip_address, netmask, gateway = get_network_info()
+    ssid = get_ssid()
+    if ip_address:
+        # Display network information on the e-Paper display
+        display_network_info(ip_address, netmask, gateway, ssid)
+
+if __name__ == '__main__':
+    main()
