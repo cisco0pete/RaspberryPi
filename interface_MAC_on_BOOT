@@ -1,0 +1,92 @@
+import subprocess
+import netifaces
+import time
+from waveshare_epd import epd2in13_V2
+from PIL import Image, ImageDraw, ImageFont
+
+# Initialize e-Paper display
+epd = epd2in13_V2.EPD()
+
+# Define what font and size will be used for on screen text
+font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 12)
+font_small = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 10)
+
+def get_network_info(interface):
+    try:
+        # Get network information for the specified interface
+        if interface in netifaces.interfaces():
+            addresses = netifaces.ifaddresses(interface)
+            ip_address = addresses[netifaces.AF_INET][0]['addr']
+            netmask = addresses[netifaces.AF_INET][0]['netmask']
+            gateway = netifaces.gateways()['default'][netifaces.AF_INET][0]
+            mac_address = addresses[netifaces.AF_LINK][0]['addr']
+            return ip_address, netmask, gateway, mac_address
+        else:
+            print(f"Interface {interface} not found.")
+            return None, None, None, None
+    except Exception as e:
+        print(f"Error retrieving network information: {e}")
+        return None, None, None, None
+
+def get_ssid(interface):
+    try:
+        # Execute the iwgetid command to get the SSID of the specified interface
+        result = subprocess.run(['iwgetid', interface, '--raw'], capture_output=True, text=True)
+        if result.returncode == 0:
+            return result.stdout.strip()
+        else:
+            return "SSID not found"
+    except Exception as e:
+        print(f"Error retrieving SSID: {e}")
+        return "SSID error"
+
+def display_network_info(ip_address, netmask, gateway, mac_address, ssid=None):
+    
+    image = Image.new('1', (epd.height, epd.width), 255)
+    draw = ImageDraw.Draw(image)
+
+    # Clear display
+    epd.init(epd.FULL_UPDATE)
+    epd.displayPartBaseImage(epd.getbuffer(image))
+
+    # display network information on the display
+    # The numbers in the parentheses are pixel coordinates on the x and y axis of the 2.13 inch screen
+    draw.text((10, 10), f"IP Address: {ip_address}", font=font, fill=0)
+    draw.text((10, 30), f"Subnet Mask: {netmask}", font=font, fill=0)
+    draw.text((10, 50), f"Default Gateway: {gateway}", font=font, fill=0)
+
+    # If a SSID is available, display it
+    if ssid:
+     draw.text((10, 70), f"SSID: {ssid}", font=font, fill=0)
+
+    # Display MAC address
+    draw.text((10, 90), f"MAC Address: {mac_address}", font=font, fill=0)
+
+    # This projects the image in a lansdscape orientation
+    image = image.rotate(90, expand=True)
+    
+    epd.init(epd.FULL_UPDATE)
+    epd.display(epd.getbuffer(image))
+
+    
+    epd.sleep()
+
+def main():
+    # Check for wireless connection first
+    if 'wlan0' in netifaces.interfaces():
+        interface = 'wlan0'
+        ip_address, netmask, gateway, mac_address = get_network_info(interface)
+        ssid = get_ssid(interface)
+        if ip_address:
+            display_network_info(ip_address, netmask, gateway, mac_address, ssid)
+    # If no wireless connection, check for wired connection
+    elif 'eth0' in netifaces.interfaces():
+        interface = 'eth0'
+        ip_address, netmask, gateway, mac_address = get_network_info(interface)
+        if ip_address:
+            display_network_info(ip_address, netmask, gateway, mac_address)
+    else:
+        print("No network interface found.")
+
+if __name__ == '__main__':
+    main()
