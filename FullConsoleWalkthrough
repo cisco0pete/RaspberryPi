@@ -1,0 +1,1787 @@
+Here is a complete console walk through from start to successful execution of my sample script.
+
+
+
+
+PowerShell 7.4.1
+
+   A new PowerShell stable release is available: v7.4.2
+   Upgrade now, or check out the release page at:
+     https://aka.ms/PowerShell-Release?tag=v7.4.2
+
+PS C:\Users\User7> ssh pi@192.168.1.113
+
+pi@192.168.1.113's password:
+
+Linux testpi 6.6.28+rpt-rpi-v8 #1 SMP PREEMPT Debian 1:6.6.28-1+rpt1 (2024-04-22) aarch64
+Last login: Fri May 24 18:57:36 2024
+
+
+
+pi@testpi:~ $ sudo apt update
+
+Hit:1 http://deb.debian.org/debian bookworm InRelease
+Get:2 http://deb.debian.org/debian-security bookworm-security InRelease [48.0 kB]
+Get:3 http://deb.debian.org/debian bookworm-updates InRelease [55.4 kB]
+Get:4 http://archive.raspberrypi.com/debian bookworm InRelease [23.6 kB]
+Get:5 http://deb.debian.org/debian-security bookworm-security/main arm64 Packages [156 kB]
+Get:6 http://deb.debian.org/debian-security bookworm-security/main armhf Packages [152 kB]
+Get:7 http://deb.debian.org/debian-security bookworm-security/main Translation-en [95.2 kB]
+Get:8 http://archive.raspberrypi.com/debian bookworm/main armhf Packages [425 kB]
+Get:9 http://archive.raspberrypi.com/debian bookworm/main arm64 Packages [416 kB]
+Fetched 1,268 kB in 5s (250 kB/s)
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+19 packages can be upgraded. Run 'apt list --upgradable' to see them.
+
+pi@testpi:~ $ sudo apt upgrade
+
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+Calculating upgrade... Done
+The following packages were automatically installed and are no longer required:
+  libraspberrypi0 libwpe-1.0-1 libwpebackend-fdo-1.0-1
+Use 'sudo apt autoremove' to remove them.
+The following NEW packages will be installed:
+  libhwloc-plugins libhwloc15 libopencv-calib3d406 libopencv-core406 libopencv-dnn406 libopencv-features2d406
+  libopencv-flann406 libopencv-imgproc406 libopencv-objdetect406 libprotobuf32 libtbb12 libtbbbind-2-5 libtbbmalloc2
+  libxnvctrl0 linux-headers-6.6.31+rpt-common-rpi linux-headers-6.6.31+rpt-rpi-2712 linux-headers-6.6.31+rpt-rpi-v8
+  linux-image-6.6.31+rpt-rpi-2712 linux-image-6.6.31+rpt-rpi-v8 linux-kbuild-6.6.31+rpt
+The following packages will be upgraded:
+  gir1.2-gtk-3.0 gstreamer1.0-alsa gstreamer1.0-plugins-base gstreamer1.0-x gtk-update-icon-cache libarchive13
+  libgstreamer-gl1.0-0 libgstreamer-plugins-base1.0-0 libgtk-3-0 libgtk-3-common linux-headers-rpi-2712
+  linux-headers-rpi-v8 linux-image-rpi-2712 linux-image-rpi-v8 linux-libc-dev python3-pil raspberrypi-sys-mods
+  raspi-firmware rpicam-apps
+19 upgraded, 20 newly installed, 0 to remove and 0 not upgraded.
+Need to get 91.6 MB of archives.
+After this operation, 140 MB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:1 http://deb.debian.org/debian-security bookworm-security/main arm64 libgstreamer-plugins-base1.0-0 arm64 1.22.0-3+deb12u2 [842 kB]
+Get:2 http://archive.raspberrypi.com/debian bookworm/main arm64 raspi-firmware all 1:1.20240529-1 [4,550 kB]
+Get:3 http://archive.raspberrypi.com/debian bookworm/main arm64 libgtk-3-common all 1:3.24.38-2~deb12u1+rpt6+rpi1 [3,895 kB]
+Get:4 http://deb.debian.org/debian-security bookworm-security/main arm64 gstreamer1.0-alsa arm64 1.22.0-3+deb12u2 [92.8 kB]
+Get:5 http://deb.debian.org/debian-security bookworm-security/main arm64 gstreamer1.0-plugins-base arm64 1.22.0-3+deb12u2 [642 kB]
+Get:6 http://archive.raspberrypi.com/debian bookworm/main arm64 libgtk-3-0 arm64 1:3.24.38-2~deb12u1+rpt6+rpi1 [2,637 kB]
+Get:7 http://archive.raspberrypi.com/debian bookworm/main arm64 gir1.2-gtk-3.0 arm64 1:3.24.38-2~deb12u1+rpt6+rpi1 [221 kB]
+Get:8 http://archive.raspberrypi.com/debian bookworm/main arm64 gtk-update-icon-cache arm64 1:3.24.38-2~deb12u1+rpt6+rpi1 [44.3 kB]
+Get:9 http://archive.raspberrypi.com/debian bookworm/main arm64 linux-headers-6.6.31+rpt-common-rpi all 1:6.6.31-1+rpt1 [8,215 kB]
+Get:10 http://archive.raspberrypi.com/debian bookworm/main arm64 linux-image-6.6.31+rpt-rpi-2712 arm64 1:6.6.31-1+rpt1 [29.4 MB]
+Get:11 http://deb.debian.org/debian-security bookworm-security/main arm64 gstreamer1.0-x arm64 1.22.0-3+deb12u2 [133 kB]
+Get:12 http://deb.debian.org/debian-security bookworm-security/main arm64 libarchive13 arm64 3.6.2-1+deb12u1 [316 kB]
+Get:13 http://deb.debian.org/debian-security bookworm-security/main arm64 libgstreamer-gl1.0-0 arm64 1.22.0-3+deb12u2 [225 kB]
+Get:14 http://deb.debian.org/debian bookworm/main arm64 libxnvctrl0 arm64 525.85.05-3~deb12u1 [13.4 kB]
+Get:15 http://deb.debian.org/debian bookworm/main arm64 libhwloc15 arm64 2.9.0-1 [133 kB]
+Get:16 http://deb.debian.org/debian bookworm/main arm64 libhwloc-plugins arm64 2.9.0-1 [17.2 kB]
+Get:17 http://deb.debian.org/debian bookworm/main arm64 libtbbmalloc2 arm64 2021.8.0-2 [34.0 kB]
+Get:18 http://deb.debian.org/debian bookworm/main arm64 libtbbbind-2-5 arm64 2021.8.0-2 [13.2 kB]
+Get:19 http://deb.debian.org/debian bookworm/main arm64 libtbb12 arm64 2021.8.0-2 [57.7 kB]
+Get:20 http://deb.debian.org/debian bookworm/main arm64 libopencv-core406 arm64 4.6.0+dfsg-12 [849 kB]
+Get:21 http://archive.raspberrypi.com/debian bookworm/main arm64 linux-kbuild-6.6.31+rpt arm64 1:6.6.31-1+rpt1 [1,012 kB]
+Get:22 http://archive.raspberrypi.com/debian bookworm/main arm64 linux-headers-6.6.31+rpt-rpi-2712 arm64 1:6.6.31-1+rpt1 [1,126 kB]
+Get:23 http://archive.raspberrypi.com/debian bookworm/main arm64 linux-image-6.6.31+rpt-rpi-v8 arm64 1:6.6.31-1+rpt1 [29.4 MB]
+Get:24 http://deb.debian.org/debian bookworm/main arm64 libopencv-flann406 arm64 4.6.0+dfsg-12 [112 kB]
+Get:25 http://deb.debian.org/debian bookworm/main arm64 libopencv-imgproc406 arm64 4.6.0+dfsg-12 [897 kB]
+Get:26 http://deb.debian.org/debian bookworm/main arm64 libopencv-features2d406 arm64 4.6.0+dfsg-12 [202 kB]
+Get:27 http://archive.raspberrypi.com/debian bookworm/main arm64 linux-headers-6.6.31+rpt-rpi-v8 arm64 1:6.6.31-1+rpt1 [1,126 kB]
+Get:28 http://archive.raspberrypi.com/debian bookworm/main arm64 linux-headers-rpi-2712 arm64 1:6.6.31-1+rpt1 [1,164 B]
+Get:29 http://archive.raspberrypi.com/debian bookworm/main arm64 linux-headers-rpi-v8 arm64 1:6.6.31-1+rpt1 [1,160 B]
+Get:30 http://archive.raspberrypi.com/debian bookworm/main arm64 linux-image-rpi-2712 arm64 1:6.6.31-1+rpt1 [1,432 B]
+Get:31 http://archive.raspberrypi.com/debian bookworm/main arm64 linux-image-rpi-v8 arm64 1:6.6.31-1+rpt1 [1,428 B]
+Get:32 http://archive.raspberrypi.com/debian bookworm/main arm64 linux-libc-dev all 1:6.6.31-1+rpt1 [2,046 kB]
+Get:33 http://deb.debian.org/debian bookworm/main arm64 libopencv-calib3d406 arm64 4.6.0+dfsg-12 [579 kB]
+Get:34 http://archive.raspberrypi.com/debian bookworm/main arm64 raspberrypi-sys-mods arm64 20240527+1 [18.8 kB]
+Get:35 http://archive.raspberrypi.com/debian bookworm/main arm64 rpicam-apps arm64 1.5.0-1 [341 kB]
+Get:36 http://deb.debian.org/debian bookworm/main arm64 libprotobuf32 arm64 3.21.12-3 [821 kB]
+Get:37 http://deb.debian.org/debian bookworm/main arm64 libopencv-dnn406 arm64 4.6.0+dfsg-12 [973 kB]
+Get:38 http://deb.debian.org/debian bookworm/main arm64 libopencv-objdetect406 arm64 4.6.0+dfsg-12 [169 kB]
+Get:39 http://deb.debian.org/debian-security bookworm-security/main arm64 python3-pil arm64 9.4.0-1.1+deb12u1 [452 kB]
+Fetched 91.6 MB in 40s (2,297 kB/s)
+Reading changelogs... Done
+Extracting templates from packages: 100%
+(Reading database ... 147654 files and directories currently installed.)
+Preparing to unpack .../00-raspi-firmware_1%3a1.20240529-1_all.deb ...
+Unpacking raspi-firmware (1:1.20240529-1) over (1:1.20240424-1) ...
+Preparing to unpack .../01-libgtk-3-common_1%3a3.24.38-2~deb12u1+rpt6+rpi1_all.deb ...
+Unpacking libgtk-3-common (1:3.24.38-2~deb12u1+rpt6+rpi1) over (1:3.24.38-2~deb12u1+rpt5+rpi1) ...
+Preparing to unpack .../02-libgtk-3-0_1%3a3.24.38-2~deb12u1+rpt6+rpi1_arm64.deb ...
+Unpacking libgtk-3-0:arm64 (1:3.24.38-2~deb12u1+rpt6+rpi1) over (1:3.24.38-2~deb12u1+rpt5+rpi1) ...
+Preparing to unpack .../03-gir1.2-gtk-3.0_1%3a3.24.38-2~deb12u1+rpt6+rpi1_arm64.deb ...
+Unpacking gir1.2-gtk-3.0:arm64 (1:3.24.38-2~deb12u1+rpt6+rpi1) over (1:3.24.38-2~deb12u1+rpt5+rpi1) ...
+Preparing to unpack .../04-libgstreamer-plugins-base1.0-0_1.22.0-3+deb12u2_arm64.deb ...
+Unpacking libgstreamer-plugins-base1.0-0:arm64 (1.22.0-3+deb12u2) over (1.22.0-3+deb12u1) ...
+Preparing to unpack .../05-gstreamer1.0-alsa_1.22.0-3+deb12u2_arm64.deb ...
+Unpacking gstreamer1.0-alsa:arm64 (1.22.0-3+deb12u2) over (1.22.0-3+deb12u1) ...
+Preparing to unpack .../06-gstreamer1.0-plugins-base_1.22.0-3+deb12u2_arm64.deb ...
+Unpacking gstreamer1.0-plugins-base:arm64 (1.22.0-3+deb12u2) over (1.22.0-3+deb12u1) ...
+Preparing to unpack .../07-gstreamer1.0-x_1.22.0-3+deb12u2_arm64.deb ...
+Unpacking gstreamer1.0-x:arm64 (1.22.0-3+deb12u2) over (1.22.0-3+deb12u1) ...
+Preparing to unpack .../08-gtk-update-icon-cache_1%3a3.24.38-2~deb12u1+rpt6+rpi1_arm64.deb ...
+Unpacking gtk-update-icon-cache (1:3.24.38-2~deb12u1+rpt6+rpi1) over (1:3.24.38-2~deb12u1+rpt5+rpi1) ...
+Preparing to unpack .../09-libarchive13_3.6.2-1+deb12u1_arm64.deb ...
+Unpacking libarchive13:arm64 (3.6.2-1+deb12u1) over (3.6.2-1) ...
+Preparing to unpack .../10-libgstreamer-gl1.0-0_1.22.0-3+deb12u2_arm64.deb ...
+Unpacking libgstreamer-gl1.0-0:arm64 (1.22.0-3+deb12u2) over (1.22.0-3+deb12u1) ...
+Selecting previously unselected package libxnvctrl0:arm64.
+Preparing to unpack .../11-libxnvctrl0_525.85.05-3~deb12u1_arm64.deb ...
+Unpacking libxnvctrl0:arm64 (525.85.05-3~deb12u1) ...
+Selecting previously unselected package libhwloc15:arm64.
+Preparing to unpack .../12-libhwloc15_2.9.0-1_arm64.deb ...
+Unpacking libhwloc15:arm64 (2.9.0-1) ...
+Selecting previously unselected package libhwloc-plugins:arm64.
+Preparing to unpack .../13-libhwloc-plugins_2.9.0-1_arm64.deb ...
+Unpacking libhwloc-plugins:arm64 (2.9.0-1) ...
+Selecting previously unselected package libtbbmalloc2:arm64.
+Preparing to unpack .../14-libtbbmalloc2_2021.8.0-2_arm64.deb ...
+Unpacking libtbbmalloc2:arm64 (2021.8.0-2) ...
+Selecting previously unselected package libtbbbind-2-5:arm64.
+Preparing to unpack .../15-libtbbbind-2-5_2021.8.0-2_arm64.deb ...
+Unpacking libtbbbind-2-5:arm64 (2021.8.0-2) ...
+Selecting previously unselected package libtbb12:arm64.
+Preparing to unpack .../16-libtbb12_2021.8.0-2_arm64.deb ...
+Unpacking libtbb12:arm64 (2021.8.0-2) ...
+Selecting previously unselected package libopencv-core406:arm64.
+Preparing to unpack .../17-libopencv-core406_4.6.0+dfsg-12_arm64.deb ...
+Unpacking libopencv-core406:arm64 (4.6.0+dfsg-12) ...
+Selecting previously unselected package libopencv-flann406:arm64.
+Preparing to unpack .../18-libopencv-flann406_4.6.0+dfsg-12_arm64.deb ...
+Unpacking libopencv-flann406:arm64 (4.6.0+dfsg-12) ...
+Selecting previously unselected package libopencv-imgproc406:arm64.
+Preparing to unpack .../19-libopencv-imgproc406_4.6.0+dfsg-12_arm64.deb ...
+Unpacking libopencv-imgproc406:arm64 (4.6.0+dfsg-12) ...
+Selecting previously unselected package libopencv-features2d406:arm64.
+Preparing to unpack .../20-libopencv-features2d406_4.6.0+dfsg-12_arm64.deb ...
+Unpacking libopencv-features2d406:arm64 (4.6.0+dfsg-12) ...
+Selecting previously unselected package libopencv-calib3d406:arm64.
+Preparing to unpack .../21-libopencv-calib3d406_4.6.0+dfsg-12_arm64.deb ...
+Unpacking libopencv-calib3d406:arm64 (4.6.0+dfsg-12) ...
+Selecting previously unselected package libprotobuf32:arm64.
+Preparing to unpack .../22-libprotobuf32_3.21.12-3_arm64.deb ...
+Unpacking libprotobuf32:arm64 (3.21.12-3) ...
+Selecting previously unselected package libopencv-dnn406:arm64.
+Preparing to unpack .../23-libopencv-dnn406_4.6.0+dfsg-12_arm64.deb ...
+Unpacking libopencv-dnn406:arm64 (4.6.0+dfsg-12) ...
+Selecting previously unselected package libopencv-objdetect406:arm64.
+Preparing to unpack .../24-libopencv-objdetect406_4.6.0+dfsg-12_arm64.deb ...
+Unpacking libopencv-objdetect406:arm64 (4.6.0+dfsg-12) ...
+Selecting previously unselected package linux-headers-6.6.31+rpt-common-rpi.
+Preparing to unpack .../25-linux-headers-6.6.31+rpt-common-rpi_1%3a6.6.31-1+rpt1_all.deb ...
+Unpacking linux-headers-6.6.31+rpt-common-rpi (1:6.6.31-1+rpt1) ...
+Selecting previously unselected package linux-image-6.6.31+rpt-rpi-2712.
+Preparing to unpack .../26-linux-image-6.6.31+rpt-rpi-2712_1%3a6.6.31-1+rpt1_arm64.deb ...
+Unpacking linux-image-6.6.31+rpt-rpi-2712 (1:6.6.31-1+rpt1) ...
+Selecting previously unselected package linux-kbuild-6.6.31+rpt.
+Preparing to unpack .../27-linux-kbuild-6.6.31+rpt_1%3a6.6.31-1+rpt1_arm64.deb ...
+Unpacking linux-kbuild-6.6.31+rpt (1:6.6.31-1+rpt1) ...
+Selecting previously unselected package linux-headers-6.6.31+rpt-rpi-2712.
+Preparing to unpack .../28-linux-headers-6.6.31+rpt-rpi-2712_1%3a6.6.31-1+rpt1_arm64.deb ...
+Unpacking linux-headers-6.6.31+rpt-rpi-2712 (1:6.6.31-1+rpt1) ...
+Selecting previously unselected package linux-image-6.6.31+rpt-rpi-v8.
+Preparing to unpack .../29-linux-image-6.6.31+rpt-rpi-v8_1%3a6.6.31-1+rpt1_arm64.deb ...
+Unpacking linux-image-6.6.31+rpt-rpi-v8 (1:6.6.31-1+rpt1) ...
+Selecting previously unselected package linux-headers-6.6.31+rpt-rpi-v8.
+Preparing to unpack .../30-linux-headers-6.6.31+rpt-rpi-v8_1%3a6.6.31-1+rpt1_arm64.deb ...
+Unpacking linux-headers-6.6.31+rpt-rpi-v8 (1:6.6.31-1+rpt1) ...
+Preparing to unpack .../31-linux-headers-rpi-2712_1%3a6.6.31-1+rpt1_arm64.deb ...
+Unpacking linux-headers-rpi-2712 (1:6.6.31-1+rpt1) over (1:6.6.28-1+rpt1) ...
+Preparing to unpack .../32-linux-headers-rpi-v8_1%3a6.6.31-1+rpt1_arm64.deb ...
+Unpacking linux-headers-rpi-v8 (1:6.6.31-1+rpt1) over (1:6.6.28-1+rpt1) ...
+Preparing to unpack .../33-linux-image-rpi-2712_1%3a6.6.31-1+rpt1_arm64.deb ...
+Unpacking linux-image-rpi-2712 (1:6.6.31-1+rpt1) over (1:6.6.28-1+rpt1) ...
+Preparing to unpack .../34-linux-image-rpi-v8_1%3a6.6.31-1+rpt1_arm64.deb ...
+Unpacking linux-image-rpi-v8 (1:6.6.31-1+rpt1) over (1:6.6.28-1+rpt1) ...
+Preparing to unpack .../35-linux-libc-dev_1%3a6.6.31-1+rpt1_all.deb ...
+Unpacking linux-libc-dev (1:6.6.31-1+rpt1) over (1:6.6.28-1+rpt1) ...
+Preparing to unpack .../36-python3-pil_9.4.0-1.1+deb12u1_arm64.deb ...
+Unpacking python3-pil:arm64 (9.4.0-1.1+deb12u1) over (9.4.0-1.1+b1) ...
+Preparing to unpack .../37-raspberrypi-sys-mods_20240527+1_arm64.deb ...
+Unpacking raspberrypi-sys-mods (20240527+1) over (20240129) ...
+Preparing to unpack .../38-rpicam-apps_1.5.0-1_arm64.deb ...
+Unpacking rpicam-apps (1.5.0-1) over (1.4.4-1) ...
+Setting up libtbbmalloc2:arm64 (2021.8.0-2) ...
+Setting up gtk-update-icon-cache (1:3.24.38-2~deb12u1+rpt6+rpi1) ...
+Setting up libarchive13:arm64 (3.6.2-1+deb12u1) ...
+Setting up linux-image-6.6.31+rpt-rpi-2712 (1:6.6.31-1+rpt1) ...
+/etc/kernel/postinst.d/initramfs-tools:
+update-initramfs: Generating /boot/initrd.img-6.6.31+rpt-rpi-2712
+'/boot/initrd.img-6.6.31+rpt-rpi-2712' -> '/boot/firmware/initramfs_2712'
+/etc/kernel/postinst.d/z50-raspi-firmware:
+'/boot/vmlinuz-6.6.31+rpt-rpi-2712' -> '/boot/firmware/kernel_2712.img'
+Setting up linux-libc-dev (1:6.6.31-1+rpt1) ...
+Setting up libgstreamer-plugins-base1.0-0:arm64 (1.22.0-3+deb12u2) ...
+Setting up linux-image-6.6.31+rpt-rpi-v8 (1:6.6.31-1+rpt1) ...
+/etc/kernel/postinst.d/initramfs-tools:
+update-initramfs: Generating /boot/initrd.img-6.6.31+rpt-rpi-v8
+'/boot/initrd.img-6.6.31+rpt-rpi-v8' -> '/boot/firmware/initramfs8'
+/etc/kernel/postinst.d/z50-raspi-firmware:
+'/boot/vmlinuz-6.6.31+rpt-rpi-v8' -> '/boot/firmware/kernel8.img'
+Setting up raspberrypi-sys-mods (20240527+1) ...
+Setting up libxnvctrl0:arm64 (525.85.05-3~deb12u1) ...
+Setting up linux-image-rpi-2712 (1:6.6.31-1+rpt1) ...
+Setting up python3-pil:arm64 (9.4.0-1.1+deb12u1) ...
+Setting up libgstreamer-gl1.0-0:arm64 (1.22.0-3+deb12u2) ...
+Setting up gstreamer1.0-plugins-base:arm64 (1.22.0-3+deb12u2) ...
+Setting up linux-headers-6.6.31+rpt-common-rpi (1:6.6.31-1+rpt1) ...
+Setting up raspi-firmware (1:1.20240529-1) ...
+'/boot/vmlinuz-6.6.31+rpt-rpi-2712' -> '/boot/firmware/kernel_2712.img'
+'/boot/vmlinuz-6.6.31+rpt-rpi-v8' -> '/boot/firmware/kernel8.img'
+Setting up libhwloc15:arm64 (2.9.0-1) ...
+Setting up linux-image-rpi-v8 (1:6.6.31-1+rpt1) ...
+Setting up libprotobuf32:arm64 (3.21.12-3) ...
+Setting up libgtk-3-common (1:3.24.38-2~deb12u1+rpt6+rpi1) ...
+Setting up linux-kbuild-6.6.31+rpt (1:6.6.31-1+rpt1) ...
+Setting up linux-headers-6.6.31+rpt-rpi-2712 (1:6.6.31-1+rpt1) ...
+Setting up gstreamer1.0-x:arm64 (1.22.0-3+deb12u2) ...
+Setting up gstreamer1.0-alsa:arm64 (1.22.0-3+deb12u2) ...
+Setting up linux-headers-6.6.31+rpt-rpi-v8 (1:6.6.31-1+rpt1) ...
+Setting up libhwloc-plugins:arm64 (2.9.0-1) ...
+Setting up libtbbbind-2-5:arm64 (2021.8.0-2) ...
+Setting up linux-headers-rpi-2712 (1:6.6.31-1+rpt1) ...
+Setting up linux-headers-rpi-v8 (1:6.6.31-1+rpt1) ...
+Setting up libtbb12:arm64 (2021.8.0-2) ...
+Setting up libopencv-core406:arm64 (4.6.0+dfsg-12) ...
+Setting up libopencv-flann406:arm64 (4.6.0+dfsg-12) ...
+Setting up libopencv-imgproc406:arm64 (4.6.0+dfsg-12) ...
+Setting up libopencv-dnn406:arm64 (4.6.0+dfsg-12) ...
+Setting up libopencv-features2d406:arm64 (4.6.0+dfsg-12) ...
+Setting up libopencv-calib3d406:arm64 (4.6.0+dfsg-12) ...
+Setting up libopencv-objdetect406:arm64 (4.6.0+dfsg-12) ...
+Setting up rpicam-apps (1.5.0-1) ...
+Processing triggers for man-db (2.11.2-2) ...
+Processing triggers for initramfs-tools (0.142) ...
+update-initramfs: Generating /boot/initrd.img-6.6.31+rpt-rpi-v8
+'/boot/initrd.img-6.6.31+rpt-rpi-v8' -> '/boot/firmware/initramfs8'
+update-initramfs: Generating /boot/initrd.img-6.6.31+rpt-rpi-2712
+'/boot/initrd.img-6.6.31+rpt-rpi-2712' -> '/boot/firmware/initramfs_2712'
+update-initramfs: Generating /boot/initrd.img-6.6.28+rpt-rpi-v8
+update-initramfs: Generating /boot/initrd.img-6.6.28+rpt-rpi-2712
+update-initramfs: Generating /boot/initrd.img-6.6.20+rpt-rpi-v8
+update-initramfs: Generating /boot/initrd.img-6.6.20+rpt-rpi-2712
+Processing triggers for libglib2.0-0:arm64 (2.74.6-2+deb12u2) ...
+Setting up libgtk-3-0:arm64 (1:3.24.38-2~deb12u1+rpt6+rpi1) ...
+Processing triggers for libc-bin (2.36-9+rpt2+deb12u7) ...
+Setting up gir1.2-gtk-3.0:arm64 (1:3.24.38-2~deb12u1+rpt6+rpi1) ...
+
+
+pi@testpi:~ $ sudo apt-get install python3-pip
+
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+python3-pip is already the newest version (23.0.1+dfsg-1+rpt1).
+The following packages were automatically installed and are no longer required:
+  libraspberrypi0 libwpe-1.0-1 libwpebackend-fdo-1.0-1 linux-headers-6.6.20+rpt-common-rpi
+  linux-headers-6.6.20+rpt-rpi-2712 linux-headers-6.6.20+rpt-rpi-v8 linux-image-6.6.20+rpt-rpi-2712
+  linux-image-6.6.20+rpt-rpi-v8 linux-kbuild-6.6.20+rpt
+Use 'sudo apt autoremove' to remove them.
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+
+
+pi@testpi:~ $ sudo pip3 install Pillow
+
+error: externally-managed-environment
+
+× This environment is externally managed
+╰─> To install Python packages system-wide, try apt install
+    python3-xyz, where xyz is the package you are trying to
+    install.
+
+    If you wish to install a non-Debian-packaged Python package,
+    create a virtual environment using python3 -m venv path/to/venv.
+    Then use path/to/venv/bin/python and path/to/venv/bin/pip. Make
+    sure you have python3-full installed.
+
+    For more information visit http://rptl.io/venv
+
+note: If you believe this is a mistake, please contact your Python installation or OS distribution provider. You can override this, at the risk of breaking your Python installation or OS, by passing --break-system-packages.
+hint: See PEP 668 for the detailed specification.
+
+
+pi@testpi:~ $ sudo apt-get install python3
+
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+python3 is already the newest version (3.11.2-1+b1).
+python3 set to manually installed.
+The following packages were automatically installed and are no longer required:
+  libraspberrypi0 libwpe-1.0-1 libwpebackend-fdo-1.0-1 linux-headers-6.6.20+rpt-common-rpi
+  linux-headers-6.6.20+rpt-rpi-2712 linux-headers-6.6.20+rpt-rpi-v8 linux-image-6.6.20+rpt-rpi-2712
+  linux-image-6.6.20+rpt-rpi-v8 linux-kbuild-6.6.20+rpt
+Use 'sudo apt autoremove' to remove them.
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+
+###################### I kept having issues getting the correct package to install #####################
+
+pi@testpi:~ $ sudo pip3 install Pillow
+
+error: externally-managed-environment
+
+× This environment is externally managed
+╰─> To install Python packages system-wide, try apt install
+    python3-xyz, where xyz is the package you are trying to
+    install.
+
+    If you wish to install a non-Debian-packaged Python package,
+    create a virtual environment using python3 -m venv path/to/venv.
+    Then use path/to/venv/bin/python and path/to/venv/bin/pip. Make
+    sure you have python3-full installed.
+
+    For more information visit http://rptl.io/venv
+
+note: If you believe this is a mistake, please contact your Python installation or OS distribution provider. You can override this, at the risk of breaking your Python installation or OS, by passing --break-system-packages.
+hint: See PEP 668 for the detailed specification.
+
+pi@testpi:~ $ sudo apt install python3-Pillow
+
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+E: Unable to locate package python3-Pillow
+
+pi@testpi:~ $ sudo apt install Pillow
+
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+E: Unable to locate package Pillow
+
+
+pi@testpi:~ $ sudo pip3 install RPi.GPIO spidev
+
+error: externally-managed-environment
+
+× This environment is externally managed
+╰─> To install Python packages system-wide, try apt install
+    python3-xyz, where xyz is the package you are trying to
+    install.
+
+    If you wish to install a non-Debian-packaged Python package,
+    create a virtual environment using python3 -m venv path/to/venv.
+    Then use path/to/venv/bin/python and path/to/venv/bin/pip. Make
+    sure you have python3-full installed.
+
+    For more information visit http://rptl.io/venv
+
+note: If you believe this is a mistake, please contact your Python installation or OS distribution provider. You can override this, at the risk of breaking your Python installation or OS, by passing --break-system-packages.
+hint: See PEP 668 for the detailed specification.
+
+pi@testpi:~ $ sudo apt-get install python3-pil
+
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+python3-pil is already the newest version (9.4.0-1.1+deb12u1).
+python3-pil set to manually installed.
+The following packages were automatically installed and are no longer required:
+  libraspberrypi0 libwpe-1.0-1 libwpebackend-fdo-1.0-1 linux-headers-6.6.20+rpt-common-rpi
+  linux-headers-6.6.20+rpt-rpi-2712 linux-headers-6.6.20+rpt-rpi-v8 linux-image-6.6.20+rpt-rpi-2712
+  linux-image-6.6.20+rpt-rpi-v8 linux-kbuild-6.6.20+rpt
+Use 'sudo apt autoremove' to remove them.
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+
+
+pi@testpi:~ $ sudo pip3 isntall Jetson.GPIO
+ERROR: unknown command "isntall" - maybe you meant "install"
+pi@testpi:~ $ sudo pip3 install Jetson.GPIO
+error: externally-managed-environment
+
+× This environment is externally managed
+╰─> To install Python packages system-wide, try apt install
+    python3-xyz, where xyz is the package you are trying to
+    install.
+
+    If you wish to install a non-Debian-packaged Python package,
+    create a virtual environment using python3 -m venv path/to/venv.
+    Then use path/to/venv/bin/python and path/to/venv/bin/pip. Make
+    sure you have python3-full installed.
+
+    For more information visit http://rptl.io/venv
+
+note: If you believe this is a mistake, please contact your Python installation or OS distribution provider. You can override this, at the risk of breaking your Python installation or OS, by passing --break-system-packages.
+hint: See PEP 668 for the detailed specification.
+
+pi@testpi:~ $ sudo pip3 install RPi.GPIO spidev
+error: externally-managed-environment
+
+× This environment is externally managed
+╰─> To install Python packages system-wide, try apt install
+    python3-xyz, where xyz is the package you are trying to
+    install.
+
+    If you wish to install a non-Debian-packaged Python package,
+    create a virtual environment using python3 -m venv path/to/venv.
+    Then use path/to/venv/bin/python and path/to/venv/bin/pip. Make
+    sure you have python3-full installed.
+
+    For more information visit http://rptl.io/venv
+
+note: If you believe this is a mistake, please contact your Python installation or OS distribution provider. You can override this, at the risk of breaking your Python installation or OS, by passing --break-system-packages.
+hint: See PEP 668 for the detailed specification.
+
+###### This is the proper command to install packages#####
+pi@testpi:~ $ sudo apt-get install python3-rpi.gpio python3-spidev python3-pil python3-pip
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+python3-rpi.gpio is already the newest version (0.7.1~a4-1+b4).
+python3-spidev is already the newest version (20200602~200721-1+bookworm).
+python3-pil is already the newest version (9.4.0-1.1+deb12u1).
+python3-pip is already the newest version (23.0.1+dfsg-1+rpt1).
+The following packages were automatically installed and are no longer required:
+  libraspberrypi0 libwpe-1.0-1 libwpebackend-fdo-1.0-1 linux-headers-6.6.20+rpt-common-rpi
+  linux-headers-6.6.20+rpt-rpi-2712 linux-headers-6.6.20+rpt-rpi-v8 linux-image-6.6.20+rpt-rpi-2712
+  linux-image-6.6.20+rpt-rpi-v8 linux-kbuild-6.6.20+rpt
+Use 'sudo apt autoremove' to remove them.
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+
+##
+pi@testpi:~ $ git clone https://github.com/waveshare/e-Paper.git
+cd e-Paper/RaspberryPi_JetsonNano/python
+sudo python3 setup.py install
+Cloning into 'e-Paper'...
+remote: Enumerating objects: 8460, done.
+remote: Counting objects: 100% (973/973), done.
+remote: Compressing objects: 100% (351/351), done.
+remote: Total 8460 (delta 713), reused 804 (delta 599), pack-reused 7487
+Receiving objects: 100% (8460/8460), 42.11 MiB | 1.86 MiB/s, done.
+Resolving deltas: 100% (6000/6000), done.
+Updating files: 100% (2795/2795), done.
+running install
+/usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+  warnings.warn(
+/usr/lib/python3/dist-packages/setuptools/command/easy_install.py:146: EasyInstallDeprecationWarning: easy_install command is deprecated. Use build and pip and other standards-based tools.
+  warnings.warn(
+running bdist_egg
+running egg_info
+creating lib/waveshare_epd.egg-info
+writing lib/waveshare_epd.egg-info/PKG-INFO
+writing dependency_links to lib/waveshare_epd.egg-info/dependency_links.txt
+writing requirements to lib/waveshare_epd.egg-info/requires.txt
+writing top-level names to lib/waveshare_epd.egg-info/top_level.txt
+writing manifest file 'lib/waveshare_epd.egg-info/SOURCES.txt'
+reading manifest file 'lib/waveshare_epd.egg-info/SOURCES.txt'
+writing manifest file 'lib/waveshare_epd.egg-info/SOURCES.txt'
+installing library code to build/bdist.linux-aarch64/egg
+running install_lib
+running build_py
+creating build
+creating build/lib
+creating build/lib/waveshare_epd
+copying lib/waveshare_epd/epd2in36g.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd2in9b_V4.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd7in5_V2.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd2in7b_V2.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd4in2_V2.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd2in9d.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd1in54b_V2.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd5in65f.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd7in3f.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd7in5b_HD.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd4in01f.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd7in5_V2_old.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd2in66g.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd2in7_V2.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd5in79.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd5in83.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd1in64g.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd7in3g.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd5in79b.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd13in3b.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd2in13bc.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd2in7.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd2in13.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd7in5b_V2.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd2in9.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd7in5_HD.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd1in02.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd4in2bc.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd2in66.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd2in13g.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd3in0g.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epdconfig.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd2in13d.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd1in54b.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd2in9b_V3.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd4in2b_V2.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd2in66b.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd5in83b_V2.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd5in83bc.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd7in5.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd2in13b_V3.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd2in9_V2.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/__init__.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd1in54c.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd13in3k.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd3in7.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd2in13_V3.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd2in13_V4.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd4in2.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd2in7b.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd4in37g.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd7in5bc.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd4in26.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd3in52.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd5in83_V2.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd2in13_V2.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd2in13b_V4.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd1in54_V2.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd2in9bc.py -> build/lib/waveshare_epd
+copying lib/waveshare_epd/epd1in54.py -> build/lib/waveshare_epd
+creating build/bdist.linux-aarch64
+creating build/bdist.linux-aarch64/egg
+creating build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in36g.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in9b_V4.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd7in5_V2.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in7b_V2.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd4in2_V2.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in9d.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd1in54b_V2.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd5in65f.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd7in3f.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd7in5b_HD.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd4in01f.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd7in5_V2_old.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in66g.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in7_V2.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd5in79.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd5in83.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd1in64g.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd7in3g.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd5in79b.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd13in3b.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in13bc.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in7.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in13.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd7in5b_V2.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in9.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd7in5_HD.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd1in02.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd4in2bc.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in66.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in13g.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd3in0g.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epdconfig.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in13d.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd1in54b.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in9b_V3.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd4in2b_V2.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in66b.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd5in83b_V2.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd5in83bc.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd7in5.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in13b_V3.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in9_V2.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/__init__.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd1in54c.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd13in3k.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd3in7.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in13_V3.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in13_V4.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd4in2.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in7b.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd4in37g.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd7in5bc.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd4in26.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd3in52.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd5in83_V2.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in13_V2.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in13b_V4.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd1in54_V2.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in9bc.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd1in54.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in36g.py to epd2in36g.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in9b_V4.py to epd2in9b_V4.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd7in5_V2.py to epd7in5_V2.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in7b_V2.py to epd2in7b_V2.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd4in2_V2.py to epd4in2_V2.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in9d.py to epd2in9d.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd1in54b_V2.py to epd1in54b_V2.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd5in65f.py to epd5in65f.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd7in3f.py to epd7in3f.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd7in5b_HD.py to epd7in5b_HD.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd4in01f.py to epd4in01f.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd7in5_V2_old.py to epd7in5_V2_old.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in66g.py to epd2in66g.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in7_V2.py to epd2in7_V2.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd5in79.py to epd5in79.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd5in83.py to epd5in83.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd1in64g.py to epd1in64g.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd7in3g.py to epd7in3g.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd5in79b.py to epd5in79b.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd13in3b.py to epd13in3b.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in13bc.py to epd2in13bc.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in7.py to epd2in7.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in13.py to epd2in13.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd7in5b_V2.py to epd7in5b_V2.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in9.py to epd2in9.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd7in5_HD.py to epd7in5_HD.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd1in02.py to epd1in02.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd4in2bc.py to epd4in2bc.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in66.py to epd2in66.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in13g.py to epd2in13g.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd3in0g.py to epd3in0g.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epdconfig.py to epdconfig.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in13d.py to epd2in13d.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd1in54b.py to epd1in54b.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in9b_V3.py to epd2in9b_V3.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd4in2b_V2.py to epd4in2b_V2.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in66b.py to epd2in66b.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd5in83b_V2.py to epd5in83b_V2.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd5in83bc.py to epd5in83bc.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd7in5.py to epd7in5.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in13b_V3.py to epd2in13b_V3.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in9_V2.py to epd2in9_V2.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/__init__.py to __init__.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd1in54c.py to epd1in54c.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd13in3k.py to epd13in3k.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd3in7.py to epd3in7.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in13_V3.py to epd2in13_V3.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in13_V4.py to epd2in13_V4.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd4in2.py to epd4in2.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in7b.py to epd2in7b.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd4in37g.py to epd4in37g.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd7in5bc.py to epd7in5bc.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd4in26.py to epd4in26.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd3in52.py to epd3in52.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd5in83_V2.py to epd5in83_V2.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in13_V2.py to epd2in13_V2.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in13b_V4.py to epd2in13b_V4.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd1in54_V2.py to epd1in54_V2.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in9bc.py to epd2in9bc.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd1in54.py to epd1in54.cpython-311.pyc
+creating build/bdist.linux-aarch64/egg/EGG-INFO
+copying lib/waveshare_epd.egg-info/PKG-INFO -> build/bdist.linux-aarch64/egg/EGG-INFO
+copying lib/waveshare_epd.egg-info/SOURCES.txt -> build/bdist.linux-aarch64/egg/EGG-INFO
+copying lib/waveshare_epd.egg-info/dependency_links.txt -> build/bdist.linux-aarch64/egg/EGG-INFO
+copying lib/waveshare_epd.egg-info/requires.txt -> build/bdist.linux-aarch64/egg/EGG-INFO
+copying lib/waveshare_epd.egg-info/top_level.txt -> build/bdist.linux-aarch64/egg/EGG-INFO
+zip_safe flag not set; analyzing archive contents...
+waveshare_epd.__pycache__.epdconfig.cpython-311: module references __file__
+creating dist
+creating 'dist/waveshare_epd-0.0.0-py3.11.egg' and adding 'build/bdist.linux-aarch64/egg' to it
+removing 'build/bdist.linux-aarch64/egg' (and everything under it)
+Processing waveshare_epd-0.0.0-py3.11.egg
+creating /usr/local/lib/python3.11/dist-packages/waveshare_epd-0.0.0-py3.11.egg
+Extracting waveshare_epd-0.0.0-py3.11.egg to /usr/local/lib/python3.11/dist-packages
+Adding waveshare-epd 0.0.0 to easy-install.pth file
+
+Installed /usr/local/lib/python3.11/dist-packages/waveshare_epd-0.0.0-py3.11.egg
+Processing dependencies for waveshare-epd==0.0.0
+Searching for Jetson.GPIO
+Reading https://pypi.org/simple/Jetson.GPIO/
+Downloading https://files.pythonhosted.org/packages/ab/8f/fb59c8dd6ad3d983c7dbe2e4c1e2af7343031760960cefe0bfeb2ab0e946/Jetson.GPIO-2.1.6.tar.gz#sha256=af8ff56b554e1f36662d19fff3d23e7c5ac261ac51ce7b1894447e64746760a2
+Best match: Jetson.GPIO 2.1.6
+Processing Jetson.GPIO-2.1.6.tar.gz
+Writing /tmp/easy_install-tx_c6s_m/Jetson.GPIO-2.1.6/setup.cfg
+Running Jetson.GPIO-2.1.6/setup.py -q bdist_egg --dist-dir /tmp/easy_install-tx_c6s_m/Jetson.GPIO-2.1.6/egg-dist-tmp-d7pb6s95
+warning: no files found matching 'LICENCE.txt'
+/usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+  warnings.warn(
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/setuptools/sandbox.py", line 156, in save_modules
+    yield saved
+  File "/usr/lib/python3/dist-packages/setuptools/sandbox.py", line 198, in setup_context
+    yield
+  File "/usr/lib/python3/dist-packages/setuptools/sandbox.py", line 259, in run_setup
+    _execfile(setup_script, ns)
+  File "/usr/lib/python3/dist-packages/setuptools/sandbox.py", line 46, in _execfile
+    exec(code, globals, locals)
+  File "/tmp/easy_install-tx_c6s_m/Jetson.GPIO-2.1.6/setup.py", line 31, in <module>
+  File "/usr/lib/python3/dist-packages/setuptools/__init__.py", line 108, in setup
+    return distutils.core.setup(**attrs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/core.py", line 185, in setup
+    return run_commands(dist)
+           ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/core.py", line 201, in run_commands
+    dist.run_commands()
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/dist.py", line 969, in run_commands
+    self.run_command(cmd)
+  File "/usr/lib/python3/dist-packages/setuptools/dist.py", line 1213, in run_command
+    super().run_command(command)
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/dist.py", line 988, in run_command
+    cmd_obj.run()
+  File "/usr/lib/python3/dist-packages/setuptools/command/bdist_egg.py", line 165, in run
+    cmd = self.call_command('install_lib', warn_dir=0)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/setuptools/command/bdist_egg.py", line 151, in call_command
+    self.run_command(cmdname)
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/cmd.py", line 318, in run_command
+    self.distribution.run_command(command)
+  File "/usr/lib/python3/dist-packages/setuptools/dist.py", line 1213, in run_command
+    super().run_command(command)
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/dist.py", line 987, in run_command
+    cmd_obj.ensure_finalized()
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/cmd.py", line 111, in ensure_finalized
+    self.finalize_options()
+  File "/usr/lib/python3/dist-packages/setuptools/command/install_lib.py", line 17, in finalize_options
+    self.set_undefined_options('install',('install_layout','install_layout'))
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/cmd.py", line 296, in set_undefined_options
+    setattr(self, dst_option, getattr(src_cmd_obj, src_option))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/cmd.py", line 107, in __getattr__
+    raise AttributeError(attr)
+AttributeError: install_layout. Did you mean: 'install_platlib'?
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/pi/e-Paper/RaspberryPi_JetsonNano/python/setup.py", line 13, in <module>
+    setup(
+  File "/usr/lib/python3/dist-packages/setuptools/__init__.py", line 108, in setup
+    return distutils.core.setup(**attrs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/core.py", line 185, in setup
+    return run_commands(dist)
+           ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/core.py", line 201, in run_commands
+    dist.run_commands()
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/dist.py", line 969, in run_commands
+    self.run_command(cmd)
+  File "/usr/lib/python3/dist-packages/setuptools/dist.py", line 1213, in run_command
+    super().run_command(command)
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/dist.py", line 988, in run_command
+    cmd_obj.run()
+  File "/usr/lib/python3/dist-packages/setuptools/command/install.py", line 74, in run
+    self.do_egg_install()
+  File "/usr/lib/python3/dist-packages/setuptools/command/install.py", line 131, in do_egg_install
+    cmd.run(show_deprecation=False)
+  File "/usr/lib/python3/dist-packages/setuptools/command/easy_install.py", line 444, in run
+    self.easy_install(spec, not self.no_deps)
+  File "/usr/lib/python3/dist-packages/setuptools/command/easy_install.py", line 686, in easy_install
+    return self.install_item(None, spec, tmpdir, deps, True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/setuptools/command/easy_install.py", line 733, in install_item
+    self.process_distribution(spec, dist, deps)
+  File "/usr/lib/python3/dist-packages/setuptools/command/easy_install.py", line 778, in process_distribution
+    distros = WorkingSet([]).resolve(
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/pkg_resources/__init__.py", line 815, in resolve
+    dist = self._resolve_dist(
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/pkg_resources/__init__.py", line 851, in _resolve_dist
+    dist = best[req.key] = env.best_match(
+                           ^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/pkg_resources/__init__.py", line 1123, in best_match
+    return self.obtain(req, installer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/pkg_resources/__init__.py", line 1135, in obtain
+    return installer(requirement)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/setuptools/command/easy_install.py", line 705, in easy_install
+    return self.install_item(spec, dist.location, tmpdir, deps)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/setuptools/command/easy_install.py", line 731, in install_item
+    dists = self.install_eggs(spec, download, tmpdir)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/setuptools/command/easy_install.py", line 924, in install_eggs
+    return self.build_and_install(setup_script, setup_base)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/setuptools/command/easy_install.py", line 1198, in build_and_install
+    self.run_setup(setup_script, setup_base, args)
+  File "/usr/lib/python3/dist-packages/setuptools/command/easy_install.py", line 1182, in run_setup
+    run_setup(setup_script, args)
+  File "/usr/lib/python3/dist-packages/setuptools/sandbox.py", line 249, in run_setup
+    with setup_context(setup_dir):
+  File "/usr/lib/python3.11/contextlib.py", line 155, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/usr/lib/python3/dist-packages/setuptools/sandbox.py", line 190, in setup_context
+    with save_modules():
+  File "/usr/lib/python3.11/contextlib.py", line 155, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/usr/lib/python3/dist-packages/setuptools/sandbox.py", line 169, in save_modules
+    saved_exc.resume()
+  File "/usr/lib/python3/dist-packages/setuptools/sandbox.py", line 143, in resume
+    raise exc.with_traceback(self._tb)
+  File "/usr/lib/python3/dist-packages/setuptools/sandbox.py", line 156, in save_modules
+    yield saved
+  File "/usr/lib/python3/dist-packages/setuptools/sandbox.py", line 198, in setup_context
+    yield
+  File "/usr/lib/python3/dist-packages/setuptools/sandbox.py", line 259, in run_setup
+    _execfile(setup_script, ns)
+  File "/usr/lib/python3/dist-packages/setuptools/sandbox.py", line 46, in _execfile
+    exec(code, globals, locals)
+  File "/tmp/easy_install-tx_c6s_m/Jetson.GPIO-2.1.6/setup.py", line 31, in <module>
+  File "/usr/lib/python3/dist-packages/setuptools/__init__.py", line 108, in setup
+    return distutils.core.setup(**attrs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/core.py", line 185, in setup
+    return run_commands(dist)
+           ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/core.py", line 201, in run_commands
+    dist.run_commands()
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/dist.py", line 969, in run_commands
+    self.run_command(cmd)
+  File "/usr/lib/python3/dist-packages/setuptools/dist.py", line 1213, in run_command
+    super().run_command(command)
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/dist.py", line 988, in run_command
+    cmd_obj.run()
+  File "/usr/lib/python3/dist-packages/setuptools/command/bdist_egg.py", line 165, in run
+    cmd = self.call_command('install_lib', warn_dir=0)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/setuptools/command/bdist_egg.py", line 151, in call_command
+    self.run_command(cmdname)
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/cmd.py", line 318, in run_command
+    self.distribution.run_command(command)
+  File "/usr/lib/python3/dist-packages/setuptools/dist.py", line 1213, in run_command
+    super().run_command(command)
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/dist.py", line 987, in run_command
+    cmd_obj.ensure_finalized()
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/cmd.py", line 111, in ensure_finalized
+    self.finalize_options()
+  File "/usr/lib/python3/dist-packages/setuptools/command/install_lib.py", line 17, in finalize_options
+    self.set_undefined_options('install',('install_layout','install_layout'))
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/cmd.py", line 296, in set_undefined_options
+    setattr(self, dst_option, getattr(src_cmd_obj, src_option))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/cmd.py", line 107, in __getattr__
+    raise AttributeError(attr)
+AttributeError: install_layout
+
+
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo nano show_ip.py
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ ls
+build     lib                   readme_jetson_EN.txt  readme_sunrise_CN.txt  show_ip.py
+dist      pic                   readme_rpi_CN.txt     readme_sunrise_EN.txt
+examples  readme_jetson_CN.txt  readme_rpi_EN.txt     setup.py
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ python3 show_ip.py
+Traceback (most recent call last):
+  File "/home/pi/e-Paper/RaspberryPi_JetsonNano/python/show_ip.py", line 47, in <module>
+    main()
+  File "/home/pi/e-Paper/RaspberryPi_JetsonNano/python/show_ip.py", line 23, in main
+    epd.init()
+  File "/usr/local/lib/python3.11/dist-packages/waveshare_epd-0.0.0-py3.11.egg/waveshare_epd/epd2in7.py", line 225, in init
+    if (epdconfig.module_init() != 0):
+        ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/waveshare_epd-0.0.0-py3.11.egg/waveshare_epd/epdconfig.py", line 143, in module_init
+    self.SPI.open(0, 0)
+FileNotFoundError: [Errno 2] No such file or directory
+
+#### Here the SPI interface was not ENABLED  ####
+
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ cd
+
+pi@testpi:~ $ sudo raspi-config
+
+pi@testpi:~ $ sudo reboot
+
+Broadcast message from root@testpi on pts/1 (Sat 2024-06-08 14:23:21 EDT):
+
+The system will reboot now!
+
+pi@testpi:~ $ Connection to 192.168.1.113 closed by remote host.
+Connection to 192.168.1.113 closed.
+
+PS C:\Users\User7> ssh pi@192.168.1.113
+pi@192.168.1.113's password: 
+
+Linux testpi 6.6.31+rpt-rpi-v8 #1 SMP PREEMPT Debian 1:6.6.31-1+rpt1 (2024-05-29) aarch64
+
+Last login: Sat Jun  8 14:23:37 2024
+
+pi@testpi:~ $ ls /dev/spidev0.*
+/dev/spidev0.0  /dev/spidev0.1
+pi@testpi:~ $ python3 ~/e-Paper/RaspberryPi_JetsonNano/python/show_ip.py
+
+^CTraceback (most recent call last):
+  File "/home/pi/e-Paper/RaspberryPi_JetsonNano/python/show_ip.py", line 47, in <module>
+    main()
+  File "/home/pi/e-Paper/RaspberryPi_JetsonNano/python/show_ip.py", line 23, in main
+    epd.init()
+  File "/usr/local/lib/python3.11/dist-packages/waveshare_epd-0.0.0-py3.11.egg/waveshare_epd/epd2in7.py", line 281, in init
+    self.ReadBusy()
+  File "/usr/local/lib/python3.11/dist-packages/waveshare_epd-0.0.0-py3.11.egg/waveshare_epd/epd2in7.py", line 179, in ReadBusy
+    epdconfig.delay_ms(200)
+    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/waveshare_epd-0.0.0-py3.11.egg/waveshare_epd/epdconfig.py", line 99, in delay_ms
+    time.sleep(delaytime / 1000.0)
+KeyboardInterrupt
+Exception in thread Thread-1:
+Fatal Python error: _enter_buffered_busy: could not acquire lock for <_io.BufferedWriter name='<stderr>'> at interpreter shutdown, possibly due to daemon threads
+Python runtime state: finalizing (tstate=0x0000000000a5ef80)
+
+Current thread 0x0000007f893984c0 (most recent call first):
+  <no Python frame>
+
+Extension modules: PIL._imaging, PIL._imagingft, spidev, _lgpio (total: 4)
+Aborted
+pi@testpi:~ $ ls
+Bookshelf  Desktop  Documents  Downloads  e-Paper  Music  Pictures  Public  Templates  Videos
+pi@testpi:~ $ cd e-Paper/
+pi@testpi:~/e-Paper $ ls
+ Arduino                  README.md               STM32            Version_EN.txt       特别提醒.txt
+ RaspberryPi_JetsonNano  'Special Reminder.txt'   Version_CN.txt   waveshare_logo.png
+pi@testpi:~/e-Paper $ cd RaspberryPi_JetsonNano/
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano $ ls
+c  python
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano $ cd python
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ ls
+build     lib                   readme_jetson_EN.txt  readme_sunrise_CN.txt  show_ip.py
+dist      pic                   readme_rpi_CN.txt     readme_sunrise_EN.txt
+examples  readme_jetson_CN.txt  readme_rpi_EN.txt     setup.py
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo nano show_ip.py
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo python3 show_ip.py
+  File "/home/pi/e-Paper/RaspberryPi_JetsonNano/python/show_ip.py", line 42
+    import os
+    ^
+IndentationError: expected an indented block after 'if' statement on line 41
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo nano show_ip.py
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo nano show_ip.py
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ rm show_ip.py
+rm: remove write-protected regular file 'show_ip.py'?
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ ls
+build     lib                   readme_jetson_EN.txt  readme_sunrise_CN.txt  show_ip.py
+dist      pic                   readme_rpi_CN.txt     readme_sunrise_EN.txt
+examples  readme_jetson_CN.txt  readme_rpi_EN.txt     setup.py
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ nano show_ip1.py
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo python3 show_ip
+show_ip1.py  show_ip.py
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo python3 show_ip
+show_ip1.py  show_ip.py
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo python3 show_ip1.py
+Initializing e-Paper display...
+^CTraceback (most recent call last):
+  File "/home/pi/e-Paper/RaspberryPi_JetsonNano/python/show_ip1.py", line 42, in <module>
+    main()
+  File "/home/pi/e-Paper/RaspberryPi_JetsonNano/python/show_ip1.py", line 22, in main
+    epd.init()
+  File "/usr/local/lib/python3.11/dist-packages/waveshare_epd-0.0.0-py3.11.egg/waveshare_epd/epd2in7.py", line 281, in init
+    self.ReadBusy()
+  File "/usr/local/lib/python3.11/dist-packages/waveshare_epd-0.0.0-py3.11.egg/waveshare_epd/epd2in7.py", line 179, in ReadBusy
+    epdconfig.delay_ms(200)
+    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/waveshare_epd-0.0.0-py3.11.egg/waveshare_epd/epdconfig.py", line 99, in delay_ms
+    time.sleep(delaytime / 1000.0)
+KeyboardInterrupt
+Exception in thread Thread-1:
+
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo apt-get install python3-rpi.gpio
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+python3-rpi.gpio is already the newest version (0.7.1~a4-1+b4).
+The following packages were automatically installed and are no longer required:
+  libraspberrypi0 libwpe-1.0-1 libwpebackend-fdo-1.0-1 linux-headers-6.6.20+rpt-common-rpi
+  linux-headers-6.6.20+rpt-rpi-2712 linux-headers-6.6.20+rpt-rpi-v8 linux-image-6.6.20+rpt-rpi-2712
+  linux-image-6.6.20+rpt-rpi-v8 linux-kbuild-6.6.20+rpt
+Use 'sudo apt autoremove' to remove them.
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ gpio readall
+-bash: gpio: command not found
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo usermod -aG spi,gpio $USER
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo nano epaper_test.py
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo python3 epaper_test.py
+Initializing e-Paper display...
+
+^CTraceback (most recent call last):
+  File "/home/pi/e-Paper/RaspberryPi_JetsonNano/python/epaper_test.py", line 19, in <module>
+    main()
+  File "/home/pi/e-Paper/RaspberryPi_JetsonNano/python/epaper_test.py", line 8, in main
+    epd.init()
+  File "/usr/local/lib/python3.11/dist-packages/waveshare_epd-0.0.0-py3.11.egg/waveshare_epd/epd2in7.py", line 281, in init
+    self.ReadBusy()
+  File "/usr/local/lib/python3.11/dist-packages/waveshare_epd-0.0.0-py3.11.egg/waveshare_epd/epd2in7.py", line 179, in ReadBusy
+    epdconfig.delay_ms(200)
+    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/waveshare_epd-0.0.0-py3.11.egg/waveshare_epd/epdconfig.py", line 99, in delay_ms
+    time.sleep(delaytime / 1000.0)
+KeyboardInterrupt
+
+
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo python3 spi_test.py
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+Response: [0, 0, 0]
+^XResponse: [0, 0, 0]
+^Z
+[1]+  Stopped                 sudo python3 spi_test.py
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ lsmod | grep spi
+spidev                 16384  2
+spi_bcm2835            20480  0
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ dmesg | grep spi
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ dmesg | grep spi
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo nano /boot/config.txt
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo usermod -aG spi,gpio pi
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ ls
+build           examples  readme_jetson_CN.txt  readme_rpi_EN.txt      setup.py     spi_test.py
+dist            lib       readme_jetson_EN.txt  readme_sunrise_CN.txt  show_ip1.py
+epaper_test.py  pic       readme_rpi_CN.txt     readme_sunrise_EN.txt  show_ip.py
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ python3 setup.py
+usage: setup.py [global_opts] cmd1 [cmd1_opts] [cmd2 [cmd2_opts] ...]
+   or: setup.py --help [cmd1 cmd2 ...]
+   or: setup.py --help-commands
+   or: setup.py cmd --help
+
+error: no commands supplied
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo python3 epaper_test.py
+Initializing e-Paper display...
+^X^CTraceback (most recent call last):
+  File "/home/pi/e-Paper/RaspberryPi_JetsonNano/python/epaper_test.py", line 19, in <module>
+    main()
+  File "/home/pi/e-Paper/RaspberryPi_JetsonNano/python/epaper_test.py", line 8, in main
+    epd.init()
+  File "/usr/local/lib/python3.11/dist-packages/waveshare_epd-0.0.0-py3.11.egg/waveshare_epd/epd2in7.py", line 281, in init
+    self.ReadBusy()
+  File "/usr/local/lib/python3.11/dist-packages/waveshare_epd-0.0.0-py3.11.egg/waveshare_epd/epd2in7.py", line 179, in ReadBusy
+    epdconfig.delay_ms(200)
+    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/waveshare_epd-0.0.0-py3.11.egg/waveshare_epd/epdconfig.py", line 99, in delay_ms
+    time.sleep(delaytime / 1000.0)
+KeyboardInterrupt
+
+
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo raspi-config
+Error: No Wi-Fi device found.
+Error: No Wi-Fi device found.
+
+
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo ifconfig
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.1.113  netmask 255.255.255.0  broadcast 192.168.1.255
+        inet6 fe80::49b9:dc75:bca8:1a3d  prefixlen 64  scopeid 0x20<link>
+        ether b8:27:eb:50:92:14  txqueuelen 1000  (Ethernet)
+        RX packets 4595  bytes 448172 (437.6 KiB)
+        RX errors 0  dropped 2  overruns 0  frame 0
+        TX packets 2639  bytes 364921 (356.3 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 22  bytes 2446 (2.3 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 22  bytes 2446 (2.3 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ ifconfig -a
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.1.113  netmask 255.255.255.0  broadcast 192.168.1.255
+        inet6 fe80::49b9:dc75:bca8:1a3d  prefixlen 64  scopeid 0x20<link>
+        ether b8:27:eb:50:92:14  txqueuelen 1000  (Ethernet)
+        RX packets 4637  bytes 451584 (441.0 KiB)
+        RX errors 0  dropped 2  overruns 0  frame 0
+        TX packets 2658  bytes 367879 (359.2 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 22  bytes 2446 (2.3 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 22  bytes 2446 (2.3 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ lsusb
+Bus 001 Device 004: ID 0846:9060 NetGear, Inc. Wireless_Device
+Bus 001 Device 003: ID 0424:ec00 Microchip Technology, Inc. (formerly SMSC) SMSC9512/9514 Fast Ethernet Adapter
+Bus 001 Device 002: ID 0424:9514 Microchip Technology, Inc. (formerly SMSC) SMC9514 Hub
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ ifconfig -a
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.1.113  netmask 255.255.255.0  broadcast 192.168.1.255
+        inet6 fe80::49b9:dc75:bca8:1a3d  prefixlen 64  scopeid 0x20<link>
+        ether b8:27:eb:50:92:14  txqueuelen 1000  (Ethernet)
+        RX packets 4737  bytes 463003 (452.1 KiB)
+        RX errors 0  dropped 3  overruns 0  frame 0
+        TX packets 2693  bytes 372691 (363.9 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 22  bytes 2446 (2.3 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 22  bytes 2446 (2.3 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+wlan0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        ether 94:18:65:5e:ed:af  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo raspi-config
+ip a
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ ip a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute
+       valid_lft forever preferred_lft forever
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether b8:27:eb:50:92:14 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.1.113/24 brd 192.168.1.255 scope global dynamic noprefixroute eth0
+       valid_lft 23523sec preferred_lft 23523sec
+    inet6 fe80::49b9:dc75:bca8:1a3d/64 scope link noprefixroute
+       valid_lft forever preferred_lft forever
+3: wlan0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether 94:18:65:5e:ed:af brd ff:ff:ff:ff:ff:ff
+    inet 192.168.1.117/24 brd 192.168.1.255 scope global dynamic noprefixroute wlan0
+       valid_lft 28792sec preferred_lft 28792sec
+    inet6 fe80::9bf:d7fb:8e3b:ed99/64 scope link noprefixroute
+       valid_lft forever preferred_lft forever
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ client_loop: send disconnect: Connection reset
+PS C:\Users\Peter G> ssh pi@192.168.1.117
+The authenticity of host '192.168.1.117 (192.168.1.117)' can't be established.
+ED25519 key fingerprint is SHA256:K0bjyr7bIT23aI85DRNx86HEtm3rmzYfxEKQ7G43lxQ.
+This host key is known by the following other names/addresses:
+    C:\Users\Peter G/.ssh/known_hosts:11: 10.0.10.104
+    C:\Users\Peter G/.ssh/known_hosts:14: 10.0.10.103
+    C:\Users\Peter G/.ssh/known_hosts:15: 192.168.20.12
+    C:\Users\Peter G/.ssh/known_hosts:16: 192.168.1.113
+Are you sure you want to continue connecting (yes/no/[fingerprint])? y
+Please type 'yes', 'no' or the fingerprint: yes
+Warning: Permanently added '192.168.1.117' (ED25519) to the list of known hosts.
+pi@192.168.1.117's password:
+Linux testpi 6.6.31+rpt-rpi-v8 #1 SMP PREEMPT Debian 1:6.6.31-1+rpt1 (2024-05-29) aarch64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Sat Jun  8 15:10:00 2024
+pi@testpi:~ $ ls
+Bookshelf  Desktop  Documents  Downloads  e-Paper  Music  Pictures  Public  Templates  Videos
+pi@testpi:~ $ cd e-Paper/4
+-bash: cd: e-Paper/4: No such file or directory
+pi@testpi:~ $ cd e-Paper/
+pi@testpi:~/e-Paper $ ls
+ Arduino                  README.md               STM32            Version_EN.txt       特别提醒.txt
+ RaspberryPi_JetsonNano  'Special Reminder.txt'   Version_CN.txt   waveshare_logo.png
+pi@testpi:~/e-Paper $ cd RaspberryPi_JetsonNano/
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano $ ls
+c  python
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano $ cd python/
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ ls
+build           examples  readme_jetson_CN.txt  readme_rpi_EN.txt      setup.py     spi_test.py
+dist            lib       readme_jetson_EN.txt  readme_sunrise_CN.txt  show_ip1.py
+epaper_test.py  pic       readme_rpi_CN.txt     readme_sunrise_EN.txt  show_ip.py
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ cd lib
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python/lib $ ls
+waveshare_epd  waveshare_epd.egg-info
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python/lib $ sudo raspi-config
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python/lib $ sudo python3 epaper_test.py
+python3: can't open file '/home/pi/e-Paper/RaspberryPi_JetsonNano/python/lib/epaper_test.py': [Errno 2] No such file or directory
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python/lib $ cd .
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python/lib $ cd..
+-bash: cd..: command not found
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python/lib $ cd.
+-bash: cd.: command not found
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python/lib $ .
+-bash: .: filename argument required
+.: usage: . filename [arguments]
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python/lib $ .cd
+-bash: .cd: command not found
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python/lib $ cd ..
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ ls
+build           examples  readme_jetson_CN.txt  readme_rpi_EN.txt      setup.py     spi_test.py
+dist            lib       readme_jetson_EN.txt  readme_sunrise_CN.txt  show_ip1.py
+epaper_test.py  pic       readme_rpi_CN.txt     readme_sunrise_EN.txt  show_ip.py
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo nano show_ip2_13.py
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo python3 setup.py install
+running install
+/usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+  warnings.warn(
+/usr/lib/python3/dist-packages/setuptools/command/easy_install.py:146: EasyInstallDeprecationWarning: easy_install command is deprecated. Use build and pip and other standards-based tools.
+  warnings.warn(
+running bdist_egg
+running egg_info
+writing lib/waveshare_epd.egg-info/PKG-INFO
+writing dependency_links to lib/waveshare_epd.egg-info/dependency_links.txt
+writing requirements to lib/waveshare_epd.egg-info/requires.txt
+writing top-level names to lib/waveshare_epd.egg-info/top_level.txt
+reading manifest file 'lib/waveshare_epd.egg-info/SOURCES.txt'
+writing manifest file 'lib/waveshare_epd.egg-info/SOURCES.txt'
+installing library code to build/bdist.linux-aarch64/egg
+running install_lib
+running build_py
+creating build/bdist.linux-aarch64/egg
+creating build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in36g.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in9b_V4.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd7in5_V2.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in7b_V2.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd4in2_V2.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in9d.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd1in54b_V2.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd5in65f.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd7in3f.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd7in5b_HD.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd4in01f.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd7in5_V2_old.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in66g.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in7_V2.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd5in79.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd5in83.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd1in64g.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd7in3g.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd5in79b.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd13in3b.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in13bc.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in7.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in13.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd7in5b_V2.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in9.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd7in5_HD.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd1in02.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd4in2bc.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in66.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in13g.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd3in0g.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epdconfig.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in13d.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd1in54b.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in9b_V3.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd4in2b_V2.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in66b.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd5in83b_V2.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd5in83bc.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd7in5.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in13b_V3.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in9_V2.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/__init__.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd1in54c.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd13in3k.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd3in7.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in13_V3.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in13_V4.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd4in2.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in7b.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd4in37g.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd7in5bc.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd4in26.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd3in52.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd5in83_V2.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in13_V2.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in13b_V4.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd1in54_V2.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd2in9bc.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+copying build/lib/waveshare_epd/epd1in54.py -> build/bdist.linux-aarch64/egg/waveshare_epd
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in36g.py to epd2in36g.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in9b_V4.py to epd2in9b_V4.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd7in5_V2.py to epd7in5_V2.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in7b_V2.py to epd2in7b_V2.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd4in2_V2.py to epd4in2_V2.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in9d.py to epd2in9d.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd1in54b_V2.py to epd1in54b_V2.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd5in65f.py to epd5in65f.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd7in3f.py to epd7in3f.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd7in5b_HD.py to epd7in5b_HD.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd4in01f.py to epd4in01f.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd7in5_V2_old.py to epd7in5_V2_old.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in66g.py to epd2in66g.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in7_V2.py to epd2in7_V2.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd5in79.py to epd5in79.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd5in83.py to epd5in83.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd1in64g.py to epd1in64g.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd7in3g.py to epd7in3g.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd5in79b.py to epd5in79b.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd13in3b.py to epd13in3b.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in13bc.py to epd2in13bc.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in7.py to epd2in7.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in13.py to epd2in13.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd7in5b_V2.py to epd7in5b_V2.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in9.py to epd2in9.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd7in5_HD.py to epd7in5_HD.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd1in02.py to epd1in02.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd4in2bc.py to epd4in2bc.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in66.py to epd2in66.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in13g.py to epd2in13g.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd3in0g.py to epd3in0g.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epdconfig.py to epdconfig.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in13d.py to epd2in13d.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd1in54b.py to epd1in54b.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in9b_V3.py to epd2in9b_V3.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd4in2b_V2.py to epd4in2b_V2.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in66b.py to epd2in66b.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd5in83b_V2.py to epd5in83b_V2.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd5in83bc.py to epd5in83bc.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd7in5.py to epd7in5.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in13b_V3.py to epd2in13b_V3.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in9_V2.py to epd2in9_V2.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/__init__.py to __init__.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd1in54c.py to epd1in54c.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd13in3k.py to epd13in3k.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd3in7.py to epd3in7.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in13_V3.py to epd2in13_V3.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in13_V4.py to epd2in13_V4.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd4in2.py to epd4in2.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in7b.py to epd2in7b.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd4in37g.py to epd4in37g.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd7in5bc.py to epd7in5bc.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd4in26.py to epd4in26.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd3in52.py to epd3in52.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd5in83_V2.py to epd5in83_V2.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in13_V2.py to epd2in13_V2.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in13b_V4.py to epd2in13b_V4.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd1in54_V2.py to epd1in54_V2.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd2in9bc.py to epd2in9bc.cpython-311.pyc
+byte-compiling build/bdist.linux-aarch64/egg/waveshare_epd/epd1in54.py to epd1in54.cpython-311.pyc
+creating build/bdist.linux-aarch64/egg/EGG-INFO
+copying lib/waveshare_epd.egg-info/PKG-INFO -> build/bdist.linux-aarch64/egg/EGG-INFO
+copying lib/waveshare_epd.egg-info/SOURCES.txt -> build/bdist.linux-aarch64/egg/EGG-INFO
+copying lib/waveshare_epd.egg-info/dependency_links.txt -> build/bdist.linux-aarch64/egg/EGG-INFO
+copying lib/waveshare_epd.egg-info/requires.txt -> build/bdist.linux-aarch64/egg/EGG-INFO
+copying lib/waveshare_epd.egg-info/top_level.txt -> build/bdist.linux-aarch64/egg/EGG-INFO
+zip_safe flag not set; analyzing archive contents...
+waveshare_epd.__pycache__.epdconfig.cpython-311: module references __file__
+creating 'dist/waveshare_epd-0.0.0-py3.11.egg' and adding 'build/bdist.linux-aarch64/egg' to it
+removing 'build/bdist.linux-aarch64/egg' (and everything under it)
+Processing waveshare_epd-0.0.0-py3.11.egg
+removing '/usr/local/lib/python3.11/dist-packages/waveshare_epd-0.0.0-py3.11.egg' (and everything under it)
+creating /usr/local/lib/python3.11/dist-packages/waveshare_epd-0.0.0-py3.11.egg
+Extracting waveshare_epd-0.0.0-py3.11.egg to /usr/local/lib/python3.11/dist-packages
+waveshare-epd 0.0.0 is already the active version in easy-install.pth
+
+Installed /usr/local/lib/python3.11/dist-packages/waveshare_epd-0.0.0-py3.11.egg
+Processing dependencies for waveshare-epd==0.0.0
+Searching for Jetson.GPIO
+Reading https://pypi.org/simple/Jetson.GPIO/
+Downloading https://files.pythonhosted.org/packages/ab/8f/fb59c8dd6ad3d983c7dbe2e4c1e2af7343031760960cefe0bfeb2ab0e946/Jetson.GPIO-2.1.6.tar.gz#sha256=af8ff56b554e1f36662d19fff3d23e7c5ac261ac51ce7b1894447e64746760a2
+Best match: Jetson.GPIO 2.1.6
+Processing Jetson.GPIO-2.1.6.tar.gz
+Writing /tmp/easy_install-v8zp44xv/Jetson.GPIO-2.1.6/setup.cfg
+Running Jetson.GPIO-2.1.6/setup.py -q bdist_egg --dist-dir /tmp/easy_install-v8zp44xv/Jetson.GPIO-2.1.6/egg-dist-tmp-gb4xorvs
+warning: no files found matching 'LICENCE.txt'
+/usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+  warnings.warn(
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/setuptools/sandbox.py", line 156, in save_modules
+    yield saved
+  File "/usr/lib/python3/dist-packages/setuptools/sandbox.py", line 198, in setup_context
+    yield
+  File "/usr/lib/python3/dist-packages/setuptools/sandbox.py", line 259, in run_setup
+    _execfile(setup_script, ns)
+  File "/usr/lib/python3/dist-packages/setuptools/sandbox.py", line 46, in _execfile
+    exec(code, globals, locals)
+  File "/tmp/easy_install-v8zp44xv/Jetson.GPIO-2.1.6/setup.py", line 31, in <module>
+  File "/usr/lib/python3/dist-packages/setuptools/__init__.py", line 108, in setup
+    return distutils.core.setup(**attrs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/core.py", line 185, in setup
+    return run_commands(dist)
+           ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/core.py", line 201, in run_commands
+    dist.run_commands()
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/dist.py", line 969, in run_commands
+    self.run_command(cmd)
+  File "/usr/lib/python3/dist-packages/setuptools/dist.py", line 1213, in run_command
+    super().run_command(command)
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/dist.py", line 988, in run_command
+    cmd_obj.run()
+  File "/usr/lib/python3/dist-packages/setuptools/command/bdist_egg.py", line 165, in run
+    cmd = self.call_command('install_lib', warn_dir=0)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/setuptools/command/bdist_egg.py", line 151, in call_command
+    self.run_command(cmdname)
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/cmd.py", line 318, in run_command
+    self.distribution.run_command(command)
+  File "/usr/lib/python3/dist-packages/setuptools/dist.py", line 1213, in run_command
+    super().run_command(command)
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/dist.py", line 987, in run_command
+    cmd_obj.ensure_finalized()
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/cmd.py", line 111, in ensure_finalized
+    self.finalize_options()
+  File "/usr/lib/python3/dist-packages/setuptools/command/install_lib.py", line 17, in finalize_options
+    self.set_undefined_options('install',('install_layout','install_layout'))
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/cmd.py", line 296, in set_undefined_options
+    setattr(self, dst_option, getattr(src_cmd_obj, src_option))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/cmd.py", line 107, in __getattr__
+    raise AttributeError(attr)
+AttributeError: install_layout. Did you mean: 'install_platlib'?
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/pi/e-Paper/RaspberryPi_JetsonNano/python/setup.py", line 13, in <module>
+    setup(
+  File "/usr/lib/python3/dist-packages/setuptools/__init__.py", line 108, in setup
+    return distutils.core.setup(**attrs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/core.py", line 185, in setup
+    return run_commands(dist)
+           ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/core.py", line 201, in run_commands
+    dist.run_commands()
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/dist.py", line 969, in run_commands
+    self.run_command(cmd)
+  File "/usr/lib/python3/dist-packages/setuptools/dist.py", line 1213, in run_command
+    super().run_command(command)
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/dist.py", line 988, in run_command
+    cmd_obj.run()
+  File "/usr/lib/python3/dist-packages/setuptools/command/install.py", line 74, in run
+    self.do_egg_install()
+  File "/usr/lib/python3/dist-packages/setuptools/command/install.py", line 131, in do_egg_install
+    cmd.run(show_deprecation=False)
+  File "/usr/lib/python3/dist-packages/setuptools/command/easy_install.py", line 444, in run
+    self.easy_install(spec, not self.no_deps)
+  File "/usr/lib/python3/dist-packages/setuptools/command/easy_install.py", line 686, in easy_install
+    return self.install_item(None, spec, tmpdir, deps, True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/setuptools/command/easy_install.py", line 733, in install_item
+    self.process_distribution(spec, dist, deps)
+  File "/usr/lib/python3/dist-packages/setuptools/command/easy_install.py", line 778, in process_distribution
+    distros = WorkingSet([]).resolve(
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/pkg_resources/__init__.py", line 815, in resolve
+    dist = self._resolve_dist(
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/pkg_resources/__init__.py", line 851, in _resolve_dist
+    dist = best[req.key] = env.best_match(
+                           ^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/pkg_resources/__init__.py", line 1123, in best_match
+    return self.obtain(req, installer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/pkg_resources/__init__.py", line 1135, in obtain
+    return installer(requirement)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/setuptools/command/easy_install.py", line 705, in easy_install
+    return self.install_item(spec, dist.location, tmpdir, deps)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/setuptools/command/easy_install.py", line 731, in install_item
+    dists = self.install_eggs(spec, download, tmpdir)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/setuptools/command/easy_install.py", line 924, in install_eggs
+    return self.build_and_install(setup_script, setup_base)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/setuptools/command/easy_install.py", line 1198, in build_and_install
+    self.run_setup(setup_script, setup_base, args)
+  File "/usr/lib/python3/dist-packages/setuptools/command/easy_install.py", line 1182, in run_setup
+    run_setup(setup_script, args)
+  File "/usr/lib/python3/dist-packages/setuptools/sandbox.py", line 249, in run_setup
+    with setup_context(setup_dir):
+  File "/usr/lib/python3.11/contextlib.py", line 155, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/usr/lib/python3/dist-packages/setuptools/sandbox.py", line 190, in setup_context
+    with save_modules():
+  File "/usr/lib/python3.11/contextlib.py", line 155, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/usr/lib/python3/dist-packages/setuptools/sandbox.py", line 169, in save_modules
+    saved_exc.resume()
+  File "/usr/lib/python3/dist-packages/setuptools/sandbox.py", line 143, in resume
+    raise exc.with_traceback(self._tb)
+  File "/usr/lib/python3/dist-packages/setuptools/sandbox.py", line 156, in save_modules
+    yield saved
+  File "/usr/lib/python3/dist-packages/setuptools/sandbox.py", line 198, in setup_context
+    yield
+  File "/usr/lib/python3/dist-packages/setuptools/sandbox.py", line 259, in run_setup
+    _execfile(setup_script, ns)
+  File "/usr/lib/python3/dist-packages/setuptools/sandbox.py", line 46, in _execfile
+    exec(code, globals, locals)
+  File "/tmp/easy_install-v8zp44xv/Jetson.GPIO-2.1.6/setup.py", line 31, in <module>
+  File "/usr/lib/python3/dist-packages/setuptools/__init__.py", line 108, in setup
+    return distutils.core.setup(**attrs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/core.py", line 185, in setup
+    return run_commands(dist)
+           ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/core.py", line 201, in run_commands
+    dist.run_commands()
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/dist.py", line 969, in run_commands
+    self.run_command(cmd)
+  File "/usr/lib/python3/dist-packages/setuptools/dist.py", line 1213, in run_command
+    super().run_command(command)
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/dist.py", line 988, in run_command
+    cmd_obj.run()
+  File "/usr/lib/python3/dist-packages/setuptools/command/bdist_egg.py", line 165, in run
+    cmd = self.call_command('install_lib', warn_dir=0)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/setuptools/command/bdist_egg.py", line 151, in call_command
+    self.run_command(cmdname)
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/cmd.py", line 318, in run_command
+    self.distribution.run_command(command)
+  File "/usr/lib/python3/dist-packages/setuptools/dist.py", line 1213, in run_command
+    super().run_command(command)
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/dist.py", line 987, in run_command
+    cmd_obj.ensure_finalized()
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/cmd.py", line 111, in ensure_finalized
+    self.finalize_options()
+  File "/usr/lib/python3/dist-packages/setuptools/command/install_lib.py", line 17, in finalize_options
+    self.set_undefined_options('install',('install_layout','install_layout'))
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/cmd.py", line 296, in set_undefined_options
+    setattr(self, dst_option, getattr(src_cmd_obj, src_option))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/setuptools/_distutils/cmd.py", line 107, in __getattr__
+    raise AttributeError(attr)
+
+
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo python3 show_ip2_13.py
+Traceback (most recent call last):
+  File "/home/pi/e-Paper/RaspberryPi_JetsonNano/python/show_ip2_13.py", line 45, in <module>
+    main()
+  File "/home/pi/e-Paper/RaspberryPi_JetsonNano/python/show_ip2_13.py", line 22, in main
+    epd.init()
+
+
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo python3 epaper_init_test.py
+
+
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo python3 epaper_init_test.py
+Display initialized successfully and cleared.
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ ls
+build                examples              readme_jetson_EN.txt   readme_sunrise_EN.txt  show_ip.py
+dist                 lib                   readme_rpi_CN.txt      setup.py               spi_test.py
+epaper_init_test.py  pic                   readme_rpi_EN.txt      show_ip1.py
+epaper_test.py       readme_jetson_CN.txt  readme_sunrise_CN.txt  show_ip2_13.py
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo nano show_ip2_13.py
+
+
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo python3 show_ip2_13.py
+Traceback (most recent call last):
+  File "/home/pi/e-Paper/RaspberryPi_JetsonNano/python/show_ip2_13.py", line 53, in <module>
+    main()
+  File "/home/pi/e-Paper/RaspberryPi_JetsonNano/python/show_ip2_13.py", line 50, in main
+    display_ip_address(ip_address)
+  File "/home/pi/e-Paper/RaspberryPi_JetsonNano/python/show_ip2_13.py", line 34, in display_ip_address
+    draw.text((10, 10), "IP Address:", font=font12, fill=0)
+                                            ^^^^^^
+
+
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo python  show_ip2_13.py
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ client_loop: send disconnect: Connection reset
+
+PS C:\Users\User7> ssh pi@192.168.1.117
+pi@192.168.1.117's password:
+
+Linux testpi 6.6.31+rpt-rpi-v8 #1 SMP PREEMPT Debian 1:6.6.31-1+rpt1 (2024-05-29) aarch64
+
+Last login: Sat Jun  8 15:29:46 2024
+
+pi@testpi:~ $ cd e-Paper/
+
+pi@testpi:~/e-Paper $ cd RaspberryPi_JetsonNano/
+
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano $ ls
+c  python
+
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano $ cd python/
+
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ ls
+build                examples              readme_jetson_EN.txt   readme_sunrise_EN.txt  show_ip.py
+dist                 lib                   readme_rpi_CN.txt      setup.py               spi_test.py
+epaper_init_test.py  pic                   readme_rpi_EN.txt      show_ip1.py
+epaper_test.py       readme_jetson_CN.txt  readme_sunrise_CN.txt  show_ip2_13.py
+
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo nano show_ip
+show_ip1.py     show_ip2_13.py  show_ip.py
+
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo nano show_ip2_13.py
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ python3 show_ip2_13.py
+
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo nano show_ip2_13Date.py
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ python3 show_ip2_13Date.py
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo nano show_ip2_13Date.py
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ python3 show_ip2_13Date.py
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo nano show_ip2_13Date.py
+
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ python3 show_ip2_13Date.py
+  File "/home/pi/e-Paper/RaspberryPi_JetsonNano/python/show_ip2_13Date.py", line 63
+    datetime_str = get_current_datetime()
+TabError: inconsistent use of tabs and spaces in indentation
+
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo nano show_ip2_13Date.py
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ python3 show_ip2_13Date.py
+
+^CTraceback (most recent call last):
+  File "/home/pi/e-Paper/RaspberryPi_JetsonNano/python/show_ip2_13Date.py", line 73, in <module>
+    main()
+  File "/home/pi/e-Paper/RaspberryPi_JetsonNano/python/show_ip2_13Date.py", line 70, in main
+    time.sleep(60)
+KeyboardInterrupt
+
+
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ python3 show_ip2_13Date.py
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo nano show_ip2_13Net.py
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ python3 show_ip2_13Net.py
+Traceback (most recent call last):
+  File "/home/pi/e-Paper/RaspberryPi_JetsonNano/python/show_ip2_13Net.py", line 2, in <module>
+    import netifaces
+ModuleNotFoundError: No module named 'netifaces'
+
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo pip3 install netifaces
+error: externally-managed-environment
+
+× This environment is externally managed
+╰─> To install Python packages system-wide, try apt install
+    python3-xyz, where xyz is the package you are trying to
+    install.
+
+    If you wish to install a non-Debian-packaged Python package,
+    create a virtual environment using python3 -m venv path/to/venv.
+    Then use path/to/venv/bin/python and path/to/venv/bin/pip. Make
+    sure you have python3-full installed.
+
+    For more information visit http://rptl.io/venv
+
+note: If you believe this is a mistake, please contact your Python installation or OS distribution provider. You can override this, at the risk of breaking your Python installation or OS, by passing --break-system-packages.
+hint: See PEP 668 for the detailed specification.
+
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo aptitude install python3-setuptools
+sudo: aptitude: command not found
+
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo apt install python3-setuptools
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+python3-setuptools is already the newest version (66.1.1-1).
+python3-setuptools set to manually installed.
+The following packages were automatically installed and are no longer required:
+  libraspberrypi0 libwpe-1.0-1 libwpebackend-fdo-1.0-1 linux-headers-6.6.20+rpt-common-rpi
+  linux-headers-6.6.20+rpt-rpi-2712 linux-headers-6.6.20+rpt-rpi-v8 linux-image-6.6.20+rpt-rpi-2712
+  linux-image-6.6.20+rpt-rpi-v8 linux-kbuild-6.6.20+rpt
+Use 'sudo apt autoremove' to remove them.
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo easy_install3 pip
+sudo: easy_install3: command not found
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo apt install python3-dev
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+python3-dev is already the newest version (3.11.2-1+b1).
+python3-dev set to manually installed.
+The following packages were automatically installed and are no longer required:
+  libraspberrypi0 libwpe-1.0-1 libwpebackend-fdo-1.0-1 linux-headers-6.6.20+rpt-common-rpi
+  linux-headers-6.6.20+rpt-rpi-2712 linux-headers-6.6.20+rpt-rpi-v8 linux-image-6.6.20+rpt-rpi-2712
+  linux-image-6.6.20+rpt-rpi-v8 linux-kbuild-6.6.20+rpt
+Use 'sudo apt autoremove' to remove them.
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo pip3 install netifaces
+error: externally-managed-environment
+
+× This environment is externally managed
+╰─> To install Python packages system-wide, try apt install
+    python3-xyz, where xyz is the package you are trying to
+    install.
+
+
+    If you wish to install a non-Debian-packaged Python package,
+    create a virtual environment using python3 -m venv path/to/venv.
+    Then use path/to/venv/bin/python and path/to/venv/bin/pip. Make
+    sure you have python3-full installed.
+
+    For more information visit http://rptl.io/venv
+
+note: If you believe this is a mistake, please contact your Python installation or OS distribution provider. You can override this, at the risk of breaking your Python installation or OS, by passing --break-system-packages.
+hint: See PEP 668 for the detailed specification.
+
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ python 3
+python: can't open file '/home/pi/e-Paper/RaspberryPi_JetsonNano/python/3': [Errno 2] No such file or directory
+
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ python3
+Python 3.11.2 (main, Mar 13 2023, 12:18:29) [GCC 12.2.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import netifaces
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ModuleNotFoundError: No module named 'netifaces'
+>>> exit
+Use exit() or Ctrl-D (i.e. EOF) to exit
+>>> D
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'D' is not defined
+>>>
+
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo apt install python3-netifaces
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following packages were automatically installed and are no longer required:
+  libraspberrypi0 libwpe-1.0-1 libwpebackend-fdo-1.0-1 linux-headers-6.6.20+rpt-common-rpi
+  linux-headers-6.6.20+rpt-rpi-2712 linux-headers-6.6.20+rpt-rpi-v8 linux-image-6.6.20+rpt-rpi-2712
+  linux-image-6.6.20+rpt-rpi-v8 linux-kbuild-6.6.20+rpt
+Use 'sudo apt autoremove' to remove them.
+The following NEW packages will be installed:
+  python3-netifaces
+0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+Need to get 16.9 kB of archives.
+After this operation, 99.3 kB of additional disk space will be used.
+Get:1 http://deb.debian.org/debian bookworm/main arm64 python3-netifaces arm64 0.11.0-2+b1 [16.9 kB]
+Fetched 16.9 kB in 0s (71.5 kB/s)
+Selecting previously unselected package python3-netifaces:arm64.
+(Reading database ... 167516 files and directories currently installed.)
+Preparing to unpack .../python3-netifaces_0.11.0-2+b1_arm64.deb ...
+Unpacking python3-netifaces:arm64 (0.11.0-2+b1) ...
+Setting up python3-netifaces:arm64 (0.11.0-2+b1) ...
+
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ python3 show_ip2_13Net.py
+
+Error retrieving network information: 2
+pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo nano show_ip2_13Net.py
+
+
+
+Here were all my console commands that led to the success of this project. You can see every unsuccessful attempt as well. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
