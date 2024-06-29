@@ -13,4 +13,5 @@ sudo python3 setup.py install
 These libraries are used to access network information
 
 pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo apt install python3-setuptools
+
 pi@testpi:~/e-Paper/RaspberryPi_JetsonNano/python $ sudo apt install python3-netifaces
